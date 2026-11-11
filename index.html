@@ -1,14 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SupeRR Selector | Pressure Performance Dashboard</title>
+<style>
+:root{--navy:#101d32;--navy2:#172944;--pink:#e11d62;--gold:#e7b85b;--ink:#172235;--muted:#66758a;--line:#e6eaf0;--bg:#f4f6fa;--white:#fff;--green:#13845b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+header{background:linear-gradient(120deg,#0c1729,#1b3558);color:white;padding:28px max(22px,calc((100vw - 1180px)/2)) 24px;border-bottom:4px solid var(--pink)}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.brand{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#b9c7dc;font-weight:800}.tag{border:1px solid #49617f;border-radius:30px;padding:6px 11px;color:#d7e2f1;font-size:11px}
+h1{font-size:clamp(26px,4vw,42px);line-height:1.08;margin:20px 0 8px;letter-spacing:-.035em}.subtitle{color:#c2cee0;max-width:760px;font-size:14px}
+.wrap{max-width:1180px;margin:auto;padding:24px 20px 60px}.notice{background:#fff8e9;border:1px solid #f1dfb8;color:#75551b;padding:11px 14px;border-radius:12px;margin-bottom:18px;font-size:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0 22px}.kpi{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 3px 12px #17223508}.kpi small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}.kpi strong{display:block;font-size:27px;margin-top:4px;letter-spacing:-.03em}.kpi span{font-size:11px;color:var(--muted)}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:20px 0 12px}.tabs{display:flex;background:#e9edf3;padding:4px;border-radius:11px;gap:3px}.tabs button{border:0;background:transparent;padding:9px 16px;border-radius:8px;font-weight:750;color:#536176;cursor:pointer}.tabs button.active{background:white;color:var(--navy);box-shadow:0 1px 4px #0001}
+.search{border:1px solid var(--line);background:white;border-radius:10px;padding:10px 12px;min-width:230px;font:inherit;outline:none}.search:focus{border-color:#9aacc4}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:17px;min-width:0}.panel h2{font-size:15px;margin:0 0 3px}.hint{color:var(--muted);font-size:11px;margin-bottom:13px}
+.chart{display:flex;flex-direction:column;gap:11px}.barrow{display:grid;grid-template-columns:135px 1fr 54px;gap:10px;align-items:center;font-size:11px}.player{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:650}.track{height:9px;background:#edf0f5;border-radius:20px;overflow:hidden}.fill{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--pink),#f28b9f)}.value{text-align:right;color:#526176;font-variant-numeric:tabular-nums}
+.tablepanel{margin-top:14px;padding:0;overflow:hidden}.tablehead{padding:17px 17px 10px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:720px}th{background:#f5f7fa;color:#647187;text-transform:uppercase;letter-spacing:.06em;font-size:10px;text-align:right;padding:11px 12px;white-space:nowrap}th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}td{padding:11px 12px;border-top:1px solid #edf0f4;text-align:right;font-variant-numeric:tabular-nums;font-size:12px;white-space:nowrap}tbody tr:hover{background:#fafbfe}.rank{font-weight:800;color:var(--pink)}.name{font-weight:750}.positive{color:var(--green);font-weight:750}.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.method{font-size:12px;color:#526176}.method b{color:#172235}.method ul{padding-left:18px;margin:8px 0}.method li{margin:5px 0}.footer{margin-top:18px;color:#7a8798;font-size:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pill{font-size:10px;border-radius:20px;background:#fce8ef;color:#a4144b;padding:4px 8px;font-weight:800}
+@media(max-width:800px){.kpis{grid-template-columns:repeat(2,1fr)}.grid,.subgrid{grid-template-columns:1fr}.barrow{grid-template-columns:112px 1fr 48px}.wrap{padding:16px 12px 40px}}
+@media print{body{background:white}.controls .search{display:none}.panel,.kpi{box-shadow:none;break-inside:avoid}header{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style></head>
 <body>
-    <p>hllo misty
-        
-    </p>
-    
-</body>
-</html>
+<header><div class="topline"><div class="brand">SupeRR Selector · Season 2</div><div class="tag">ROUND 1 · PERFORMANCE ANALYSIS</div></div>
+<h1>Who holds their nerve<br>when the game gets tight?</h1>
+<div class="subtitle">A pressure-performance view of the supplied player dataset, built to support Rajasthan Royals’ scouting discussion ahead of the IPL 2027 auction.</div></header>
+<main class="wrap">
+<div class="notice"><b>Analyst note:</b> These are model-based historical rankings, not confirmed 2027 auction targets. Availability, registration, age, injury status, price and squad fit must be checked separately. The pressure definition and score weights are analytical choices, not official RR criteria.</div>
+<section class="kpis" id="kpis"></section>
+<div class="controls"><div class="tabs"><button class="active" id="batTab" onclick="setRole('batters')">Batters</button><button id="bowlTab" onclick="setRole('bowlers')">Bowlers</button></div><input class="search" id="search" placeholder="Search player..." oninput="render()"></div>
+<section class="grid">
+<div class="panel"><h2 id="chartTitle">Batting under pressure</h2><div class="hint" id="chartHint">Pressure strike rate · top 10 ranked batters</div><div class="chart" id="chart"></div></div>
+<div class="panel"><h2>How to interpret the shortlist</h2><div class="hint">Performance signal, not an automatic auction decision</div><div class="method" id="insight"></div></div>
+</section>
+<section class="panel tablepanel"><div class="tablehead"><div><h2 id="tableTitle">Top 10 batters</h2><div class="hint" style="margin:3px 0 0">Select a role above; use search to find a player.</div></div><span class="pill">RANKED SHORTLIST</span></div><div class="tablewrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div></section>
+<section class="subgrid">
+<div class="panel"><h2>Pressure definition</h2><div class="method"><ul><li><b>First innings:</b> overs 18–20; overs 16–17 also included when at least three wickets have fallen.</li><li><b>Chase:</b> required rate ≥9 runs/over; or 36 or fewer balls remain with required rate ≥7.5; or 60 or fewer balls remain with at least five wickets down.</li></ul>This is a reproducible proxy based on the supplied match situation fields. It does not capture every factor that makes a delivery difficult.</div></div>
+<div class="panel"><h2>Scoring approach</h2><div class="method"><b>Batters:</b> 50% strike-rate improvement, 25% dismissal-rate improvement and 25% boundary-rate improvement.<br><br><b>Bowlers:</b> 40% economy improvement, 35% wicket-rate change and 25% dot-ball change.<br><br>Small samples are discounted using pressure balls ÷ (pressure balls + 60). Minimum exposure: 120 pressure balls, 12 pressure matches and 180 total role balls.</div></div>
+</section>
+<div class="footer"><span>Source: SupeRR Selector Season 2 participant data pack supplied via Unstop.</span><span>Competition-use analysis · Not an official Rajasthan Royals product</span></div>
+</main>
+<script>
+const DATA={"batters": [{"Rank": 1, "Player": "Fakhar Zaman", "Pressure_balls": 242, "Pressure_matches": 16, "Pressure_runs": 425, "Pressure_SR": 175.6, "Baseline_SR": 131.4, "SR_change": 44.2, "Pressure_dismissal_rate": 5.0, "Boundary_rate": 26.0, "Model_score": 2.125}, {"Rank": 2, "Player": "Rishabh Pant", "Pressure_balls": 446, "Pressure_matches": 38, "Pressure_runs": 801, "Pressure_SR": 179.6, "Baseline_SR": 143.1, "SR_change": 36.5, "Pressure_dismissal_rate": 6.1, "Boundary_rate": 28.3, "Model_score": 1.817}, {"Rank": 3, "Player": "Ambati Rayudu", "Pressure_balls": 122, "Pressure_matches": 13, "Pressure_runs": 204, "Pressure_SR": 167.2, "Baseline_SR": 128.2, "SR_change": 39.0, "Pressure_dismissal_rate": 8.2, "Boundary_rate": 24.6, "Model_score": 1.356}, {"Rank": 4, "Player": "Shashank Singh", "Pressure_balls": 377, "Pressure_matches": 32, "Pressure_runs": 701, "Pressure_SR": 185.9, "Baseline_SR": 161.6, "SR_change": 24.3, "Pressure_dismissal_rate": 3.7, "Boundary_rate": 26.3, "Model_score": 1.335}, {"Rank": 5, "Player": "Sanju Samson", "Pressure_balls": 562, "Pressure_matches": 48, "Pressure_runs": 1013, "Pressure_SR": 180.2, "Baseline_SR": 154.6, "SR_change": 25.6, "Pressure_dismissal_rate": 5.5, "Boundary_rate": 28.3, "Model_score": 1.328}, {"Rank": 6, "Player": "Sikandar Raza", "Pressure_balls": 451, "Pressure_matches": 34, "Pressure_runs": 731, "Pressure_SR": 162.1, "Baseline_SR": 135.5, "SR_change": 26.6, "Pressure_dismissal_rate": 5.8, "Boundary_rate": 21.7, "Model_score": 1.321}, {"Rank": 7, "Player": "Towhid Hridoy", "Pressure_balls": 310, "Pressure_matches": 23, "Pressure_runs": 475, "Pressure_SR": 153.2, "Baseline_SR": 125.9, "SR_change": 27.4, "Pressure_dismissal_rate": 4.2, "Boundary_rate": 17.1, "Model_score": 1.318}, {"Rank": 8, "Player": "Reeza Hendricks", "Pressure_balls": 347, "Pressure_matches": 16, "Pressure_runs": 591, "Pressure_SR": 170.3, "Baseline_SR": 146.6, "SR_change": 23.7, "Pressure_dismissal_rate": 3.7, "Boundary_rate": 26.2, "Model_score": 1.286}, {"Rank": 9, "Player": "Virat Kohli", "Pressure_balls": 621, "Pressure_matches": 35, "Pressure_runs": 1042, "Pressure_SR": 167.8, "Baseline_SR": 145.2, "SR_change": 22.6, "Pressure_dismissal_rate": 2.9, "Boundary_rate": 24.0, "Model_score": 1.271}, {"Rank": 10, "Player": "Pathum Nissanka", "Pressure_balls": 402, "Pressure_matches": 22, "Pressure_runs": 639, "Pressure_SR": 159.0, "Baseline_SR": 135.4, "SR_change": 23.5, "Pressure_dismissal_rate": 3.5, "Boundary_rate": 22.1, "Model_score": 1.255}], "bowlers": [{"Rank": 1, "Player": "Mohammad Nawaz", "Pressure_balls": 299, "Pressure_matches": 24, "Pressure_runs_conceded": 316, "Pressure_economy": 6.34, "Baseline_economy": 7.12, "Economy_improvement": 0.78, "Pressure_wickets": 29, "Pressure_dot_pct": 41.5, "Model_score": 0.708}, {"Rank": 2, "Player": "Hasan Mahmud", "Pressure_balls": 168, "Pressure_matches": 15, "Pressure_runs_conceded": 211, "Pressure_economy": 7.54, "Baseline_economy": 7.8, "Economy_improvement": 0.27, "Pressure_wickets": 17, "Pressure_dot_pct": 42.3, "Model_score": 0.543}, {"Rank": 3, "Player": "Rasikh Salam", "Pressure_balls": 229, "Pressure_matches": 17, "Pressure_runs_conceded": 371, "Pressure_economy": 9.72, "Baseline_economy": 9.98, "Economy_improvement": 0.26, "Pressure_wickets": 21, "Pressure_dot_pct": 34.9, "Model_score": 0.455}, {"Rank": 4, "Player": "Shadab Khan", "Pressure_balls": 323, "Pressure_matches": 25, "Pressure_runs_conceded": 410, "Pressure_economy": 7.62, "Baseline_economy": 7.87, "Economy_improvement": 0.25, "Pressure_wickets": 22, "Pressure_dot_pct": 34.7, "Model_score": 0.396}, {"Rank": 5, "Player": "Jamie Overton", "Pressure_balls": 197, "Pressure_matches": 19, "Pressure_runs_conceded": 277, "Pressure_economy": 8.44, "Baseline_economy": 8.58, "Economy_improvement": 0.14, "Pressure_wickets": 21, "Pressure_dot_pct": 39.6, "Model_score": 0.388}, {"Rank": 6, "Player": "Abrar Ahmed", "Pressure_balls": 291, "Pressure_matches": 23, "Pressure_runs_conceded": 292, "Pressure_economy": 6.02, "Baseline_economy": 6.66, "Economy_improvement": 0.64, "Pressure_wickets": 22, "Pressure_dot_pct": 46.0, "Model_score": 0.387}, {"Rank": 7, "Player": "Spencer Johnson", "Pressure_balls": 163, "Pressure_matches": 15, "Pressure_runs_conceded": 240, "Pressure_economy": 8.83, "Baseline_economy": 9.23, "Economy_improvement": 0.4, "Pressure_wickets": 13, "Pressure_dot_pct": 45.4, "Model_score": 0.369}, {"Rank": 8, "Player": "Vyshak Kumar", "Pressure_balls": 204, "Pressure_matches": 20, "Pressure_runs_conceded": 343, "Pressure_economy": 10.09, "Baseline_economy": 10.33, "Economy_improvement": 0.25, "Pressure_wickets": 14, "Pressure_dot_pct": 32.8, "Model_score": 0.367}, {"Rank": 9, "Player": "Mohammad Rishad Hossain", "Pressure_balls": 306, "Pressure_matches": 28, "Pressure_runs_conceded": 429, "Pressure_economy": 8.41, "Baseline_economy": 8.44, "Economy_improvement": 0.03, "Pressure_wickets": 25, "Pressure_dot_pct": 39.2, "Model_score": 0.362}, {"Rank": 10, "Player": "Mitchell Santner", "Pressure_balls": 635, "Pressure_matches": 46, "Pressure_runs_conceded": 760, "Pressure_economy": 7.18, "Baseline_economy": 7.39, "Economy_improvement": 0.21, "Pressure_wickets": 45, "Pressure_dot_pct": 38.6, "Model_score": 0.345}]};
+let role='batters';
+const fmt=(v,d=1)=>Number(v).toLocaleString('en-IN',{maximumFractionDigits:d});
+function setRole(r){role=r;document.getElementById('batTab').classList.toggle('active',r==='batters');document.getElementById('bowlTab').classList.toggle('active',r==='bowlers');render()}
+function render(){
+ const arr=DATA[role], q=document.getElementById('search').value.toLowerCase();
+ const rows=arr.filter(x=>x.Player.toLowerCase().includes(q));
+ const bat=role==='batters';
+ document.getElementById('chartTitle').textContent=bat?'Batting under pressure':'Bowling under pressure';
+ document.getElementById('chartHint').textContent=bat?'Pressure strike rate · top 10 ranked batters':'Pressure wickets · top 10 ranked bowlers';
+ document.getElementById('tableTitle').textContent=bat?'Top 10 batters':'Top 10 bowlers';
+ const max=Math.max(...rows.map(x=>bat?x.Pressure_SR:x.Pressure_wickets),1);
+ document.getElementById('chart').innerHTML=rows.map(x=>`<div class="barrow"><div class="player">${x.Rank}. ${x.Player}</div><div class="track"><div class="fill" style="width:${(bat?x.Pressure_SR:x.Pressure_wickets)/max*100}%"></div></div><div class="value">${bat?fmt(x.Pressure_SR):x.Pressure_wickets}</div></div>`).join('')||'<div class="hint">No matching player.</div>';
+ if(bat){
+ document.getElementById('thead').innerHTML='<tr><th>Rank</th><th>Player</th><th>Pressure balls</th><th>Matches</th><th>Pressure SR</th><th>Baseline SR</th><th>SR change</th><th>Model score</th></tr>';
+ document.getElementById('tbody').innerHTML=rows.map(x=>`<tr><td class="rank">${x.Rank}</td><td class="name">${x.Player}</td><td>${x.Pressure_balls}</td><td>${x.Pressure_matches}</td><td>${fmt(x.Pressure_SR)}</td><td>${fmt(x.Baseline_SR)}</td><td class="positive">+${fmt(x.SR_change)}</td><td>${fmt(x.Model_score,3)}</td></tr>`).join('');
+ document.getElementById('insight').innerHTML='<p><b>Fakhar Zaman</b> shows the largest pressure strike-rate lift over baseline in this shortlist (+44.2). <b>Rishabh Pant</b> has a substantial sample of 446 pressure balls across 38 matches. <b>Shashank Singh</b> records the highest pressure strike rate (185.9), a profile worth reviewing for a finishing role.</p><p>Sample size matters: Sanju Samson and Virat Kohli also have substantial pressure-ball exposure. Role fit and auction availability still need separate checks.</p>';
+ }else{
+ document.getElementById('thead').innerHTML='<tr><th>Rank</th><th>Player</th><th>Pressure balls</th><th>Matches</th><th>Pressure econ.</th><th>Baseline econ.</th><th>Wickets</th><th>Dot %</th><th>Model score</th></tr>';
+ document.getElementById('tbody').innerHTML=rows.map(x=>`<tr><td class="rank">${x.Rank}</td><td class="name">${x.Player}</td><td>${x.Pressure_balls}</td><td>${x.Pressure_matches}</td><td>${fmt(x.Pressure_economy,2)}</td><td>${fmt(x.Baseline_economy,2)}</td><td>${x.Pressure_wickets}</td><td>${fmt(x.Pressure_dot_pct)}</td><td>${fmt(x.Model_score,3)}</td></tr>`).join('');
+ document.getElementById('insight').innerHTML='<p><b>Mohammad Nawaz</b> combines a 6.34 pressure economy with 29 pressure wickets. <b>Abrar Ahmed</b> records a 6.02 pressure economy and 22 wickets. <b>Mitchell Santner</b> has the largest exposure in this group: 635 pressure balls across 46 matches.</p><p><b>Rasikh Salam</b> appears in the composite ranking, but his 9.72 pressure economy deserves closer role- and context-level review before treating him as a priority target.</p>';
+ }
+}
+function kpis(){
+ const b=DATA.batters,w=DATA.bowlers;
+ const pressureBalls=b.reduce((s,x)=>s+x.Pressure_balls,0)+w.reduce((s,x)=>s+x.Pressure_balls,0);
+ document.getElementById('kpis').innerHTML=[
+ ['Players shortlisted','20','10 batters · 10 bowlers'],
+ ['Pressure deliveries','78,211','Across the analysed dataset'],
+ ['Highest batting pressure SR','185.9','Shashank Singh'],
+ ['Lowest bowling pressure econ.','6.02','Abrar Ahmed']
+ ].map(x=>`<div class="kpi"><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></div>`).join('');
+}
+kpis();render();
+</script></body></html>
